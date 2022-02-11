@@ -1,3 +1,4 @@
+from cgi import test
 import csv
 import numpy as np
 import matplotlib.pyplot as plt
@@ -27,7 +28,6 @@ w_d = [ 3.52546799e+05,  1.13711259e+00,  1.42221801e+02, -4.84584170e+03,
        -1.40391275e+07,  2.87475831e+06, -1.29943929e+06,  2.32150614e+06,
         8.35698821e+06, -1.01268476e+07,  1.12328526e+07,  1.01081055e+07,
         1.68244506e+06, -1.57402087e+07]
-
 for part in ['a','d']:
     X = make_basis(test_x,part) 
     if part == 'a':
