@@ -1,3 +1,4 @@
+from unittest.util import sorted_list_difference
 import numpy as np
 
 # Please implement the predict() method of this class
@@ -16,6 +17,9 @@ class KNNModel:
     def __dummyPrivateMethod(self, input):
         return None
 
+    def __calcDist(self, mag1, mag2, temp1, temp2):
+        return ((mag1 - mag2) / 3) ** 2 + (temp1 - temp2) ** 2
+
     # TODO: Implement this method!
     def predict(self, X_pred):
         # The code in this method should be removed and replaced! We included it
@@ -23,8 +27,18 @@ class KNNModel:
         # (currently meaningless) visualization.
         preds = []
         for x in X_pred:
-            z = np.cos(x ** 2).sum()
-            preds.append(1 + np.sign(z) * (np.abs(z) > 0.3))
+            dist = []
+            for pt in range(len(self.X)):
+                dist.append((self.__calcDist(x[0], self.X[pt][0], x[1], self.X[pt][1]), self.y[pt]))
+            
+            sorted_dist = sorted(dist, key=lambda y : y[0])
+
+            prediction = []
+            for i in range(self.K):
+                prediction.append(sorted_dist[i][1])
+
+            preds.append(np.bincount(np.array(prediction)).argmax())
+
         return np.array(preds)
 
     # In KNN, "fitting" can be as simple as storing the data, so this has been written for you
