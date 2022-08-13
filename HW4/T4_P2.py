@@ -28,7 +28,7 @@ class KMeans(object):
     def euc_dist(self, x, y):
         return np.sqrt(np.sum((x-y)**2))
 
-    # X is a (N x 28 x 28) array where 28x28 is the dimensions of each of the N images.
+    # X is a (N x 784) array since the dimension of each image is 28x28.
     def fit(self, X):
         self.X = X
         new_mu = np.random.rand(X.shape[1], self.K)
@@ -109,6 +109,7 @@ class HAC(object):
         large_label = np.max([clust1, clust2])
         self.clusters[self.clusters == large_label] = small_label
     
+    # X is a (N x 784) array since the dimension of each image is 28x28.
     def fit(self, X):
         self.X = X
         self.distances = sc.distance.cdist(X, X, 'euclidean')
